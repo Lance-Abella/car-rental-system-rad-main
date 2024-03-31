@@ -1,0 +1,21 @@
+{
+  "targets": {
+    "rentanddrive-angular": {
+      "hosting": {
+        "car-rental-system-rad": [
+          "rentanddrive-angular"
+        ]
+      }
+    },
+    "rentanddrive-angular-1e5ec": {
+      "hosting": {
+        "car-rental-system-rad": [
+          "rentanddrive-angular-1e5ec"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "rentanddrive-angular-1e5ec"
+  }
+}

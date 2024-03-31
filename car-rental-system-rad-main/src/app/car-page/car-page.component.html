@@ -1,0 +1,194 @@
+<div class="container-fluid parentContainer">
+    <div class="container child-1">
+
+        <img src="assets\sidebar-rad-logo.svg" class="img-fluid img" alt="Image">  
+        <div class="btn-group-vertical btn-nav" role="group" aria-label="Vertical button group">
+
+            <!-- <a routerLink=""><button type="button" class="btn navbtn"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" class="iconSize"></mat-icon>HOME</button></a> -->
+
+            <a routerLink="/userpage"><button type="button" class="btn navbtn active"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="directions_car" class="iconSize"></mat-icon>CARS FOR RENT</button></a>
+
+            <a routerLink="/rented"><button type="button" class="btn navbtn"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="car_rental" class="iconSize"></mat-icon>RENTED VEHICLES</button></a>
+
+            <a routerLink="/login-page"><button type="button" class="btn navbtn btn-sign-out"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout  " class="iconSize"></mat-icon>SIGN OUT</button></a>
+            
+        </div>
+
+    </div>
+
+    <div class="container child-2">
+
+        <div class="container subchild-1">
+
+            <a routerLink="/userpage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-arrow-90deg-left backbtn" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+            </svg></a>
+            <img src="assets\Menu.svg" class="img-fluid btn-menu" alt="Image">
+            <img src="assets\Alarm.svg" class="img-fluid btn-alarm" alt="Image">
+            <img src="assets\Male User.svg" class="img-fluid btn-user" alt="Image">
+            <div class="user-info">            
+                <!-- <a href="" class="user-name">{{retrievedUsername}}</a><br> -->
+                <p><strong>{{retrievedUsername}}</strong></p>
+                <!-- <a href="" class="user-type">User</a> -->
+            </div>
+            <!-- <img src="assets\arrow-down.svg" class="img-fluid btn-arrow" alt="Image"> -->
+
+        </div>
+
+        <div class="container subchild-2 d-flex">
+
+            <div class="container grandchild-1">
+
+                <div class="name" *ngIf="car">
+                    {{car.make}} - {{car.model}} - {{car.year}}
+                </div>
+
+                <div class="image" *ngIf="car">
+                    <img src="{{car.carImages}}" alt="Image"/>
+                    <!-- <img src="assets/Car.png" alt="Image"/> -->
+                </div>
+        
+                <div class="details" *ngIf="car">                            
+        
+                    <div class="capacity">  
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="groups" class="groups capacityIcon"></mat-icon><span class="capacityTxt"><strong>Capacity: </strong> </span>{{car.seatCapacity}}
+                    </div>
+        
+                    <div class="type" *ngIf="car">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="electric_car" class="electricCar"></mat-icon><span class="typeTxt"><strong>Car Type: </strong></span>{{car.carType}}
+                    </div>
+        
+                    <div class="cap" *ngIf="car">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="gas_meter" class="mileage"></mat-icon><span class="mileageTxt"><strong>Mileage Cap: </strong></span>{{car.fuelType}}
+                    </div>
+        
+                    <div class="price" *ngIf="car">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="car_rental" class="rentIcon"></mat-icon><span class="priceTxt"><strong>Price[24 hours]: </strong></span>₱{{car.bookingPrice}}
+                    </div>
+        
+                </div>
+
+            </div>
+
+            <div class="container grandchild-2">
+
+                <div class="container mt-4">
+
+                    <form (ngSubmit)="onValidation()" #form="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Booking Details</h4>
+
+                                <div class="form-group mb-3">
+                                    <label for="fullname">Full Name</label>
+                                    <input type="text" class="form-control" id="fullname" [(ngModel)]="formData.fullname" name="fullname"  required>
+                                    <div *ngIf="form.controls['fullname']?.invalid && form.controls['fullname']?.touched" class="text-danger">
+                                        Full Name is required.
+                                      </div>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="numDays">Number of Days</label>
+                                    <input type="number" class="form-control" id="numDays" [(ngModel)]="formData.numDays" name="numDays" (input)="calculateTotalAmount()" required>
+                                    <div *ngIf="form.controls['numDays']?.invalid && form.controls['numDays']?.touched" class="text-danger">
+                                        Number of Days is required.
+                                      </div>
+                                </div>
+        
+                                <div class="form-group mb-3">
+                                    <label for="pickupLocation">Pick Up Location</label>
+                                    <input type="text" class="form-control" id="pickupLocation" [(ngModel)]="formData.pickupLocation" name="pickupLocation"  required>
+                                    <div *ngIf="form.controls['pickupLocation']?.invalid && form.controls['pickupLocation']?.touched" class="text-danger">
+                                        Pick Up Location is required.
+                                      </div>
+                                </div>
+        
+                                <div class="form-group mb-3">
+                                    <label for="message">Message (Optional)</label>
+                                    <textarea class="form-control" id="message" rows="3" [(ngModel)]="formData.message" name="message" ></textarea>
+                                    <!-- <div *ngIf="form.controls['message']?.invalid && form.controls['message']?.touched" class="text-danger">
+                                        Pick Up Location is required.
+                                      </div> -->
+                                </div>
+        
+                                <div class="form-group mb-3">
+                                    <label for="downPayment">Down Payment</label>
+                                    <input type="number" class="form-control" id="downPayment" placeholder="Initial Deposit" [(ngModel)]="formData.downPayment" name="downPayment"  required>
+                                    <div *ngIf="form.controls['downPayment']?.invalid && form.controls['downPayment']?.touched" class="text-danger">
+                                        Down Payment is required.
+                                      </div>
+                                </div>
+        
+                            </div>
+        
+                            <div class="col-md-6">
+                                
+                                <h4>Payment Details</h4>
+                                <div class="form-group mb-3">
+                                    <label for="username">Email</label>
+                                    <input type="text" class="form-control" id="username" [value]=" retrievedUsername" [(ngModel)]="formData.username" name="username"  readonly>
+                                    <!-- <div *ngIf="form.controls['username']?.invalid && form.controls['username']?.touched" class="text-danger">
+                                        Pick Up Location is required.
+                                      </div> -->
+                                </div>
+
+                                
+        
+                                <div class="form-group mb-3">
+                                    <label for="paymentMethod">Payment Method</label>
+                                    <select class="form-control" id="paymentMethod" [(ngModel)]="formData.paymentMethod" name="paymentMethod"  required>
+                                        <option value="CreditCard">Credit Card</option>
+                                        <option value="Debit Card">Debit Card</option>
+                                        <option value="Paypal">PayPal</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Gcash">Gcash</option>
+                                    </select>
+                                    <div *ngIf="form.controls['paymentMethod']?.invalid && form.controls['paymentMethod']?.touched" class="text-danger">
+                                        Payment Method is required.
+                                      </div>
+                                </div>
+        
+                                <div class="form-group mb-3">
+                                    <label for="totalAmount">Amount</label>
+                                    <input type="number" class="form-control" id="amount" [(ngModel)]="formData.amount" name="amount" [value]="totalAmount"  readonly>
+                                    <!-- <div *ngIf="form.controls['amount']?.invalid && form.controls['amount']?.touched" class="text-danger">
+                                        Amount is required.
+                                      </div> -->
+                                </div>
+        
+                                <div class="form-group mb-3">
+                                    <label for="bookingDate">Booking Date</label>
+                                    <input type="date" class="form-control" id="bookingDate" [(ngModel)]="formData.bookingDate" name="bookingDate"  required>
+                                    <div *ngIf="form.controls['bookingDate']?.invalid && form.controls['bookingDate']?.touched" class="text-danger">
+                                        Booking Date is required.
+                                      </div>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="returnDate">Return Date</label>
+                                    <input type="date" class="form-control" id="returnDate" [(ngModel)]="formData.returnDate" name="returnDate"  required>
+                                    <div *ngIf="form.controls['returnDate']?.invalid && form.controls['returnDate']?.touched" class="text-danger">
+                                        Return Date is required.
+                                      </div>
+                                </div>
+        
+                            </div>
+                        </div>
+        
+                        <button type="submit" class="btn btn-primary mt-3 bookbtn">Book Now</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+   
+
+
+
+    
+    

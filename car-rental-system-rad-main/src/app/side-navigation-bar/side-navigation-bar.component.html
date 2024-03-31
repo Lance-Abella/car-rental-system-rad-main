@@ -1,0 +1,63 @@
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <app-admin-sidebar></app-admin-sidebar>
+    <!-- Page Content  -->
+    <div id="content">
+      <app-admin-navbar></app-admin-navbar>
+      <br><br><br><br>
+      <div class="container">
+        <div class="row content-container">
+          <div class="col-sm-3 total-bookings">
+            <i class="bi bi-journal-plus"></i>
+            Total Bookings 
+            <p style="text-align: right; margin-top: 50px; font-size: 40px; color: white;">{{ totalBookings }}</p>
+          </div>          
+          <div class="col-sm-3 number-of-clients">
+            <i class="bi bi-people-fill"></i>
+            Number of Clients 
+            <p style="text-align: right; margin-top: 50px; font-size: 40px; color: white;">{{ numberOfClients }}</p>
+          </div>
+          <div class="col-sm-3 total-earnings">
+            <i class="bi bi-cash-coin"></i>
+            Total Earnings 
+            <p style="text-align: right; margin-top: 50px; font-size: 40px; color: white;">{{ totalEarnings | currency:'PHP':'symbol':'1.2-2' }}</p>
+          </div>
+        </div>
+        
+    </div>
+      <br><br><br><br>
+      <div class="recent-bookings-container">
+        <h2>REGISTERED USERS</h2>
+        <table class="table">
+          <thead class="table-success">
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Mobile No.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userDetails">
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.mobileNo }}</td>
+            </tr>
+          </tbody>          
+        </table>
+      </div>
+      <br><br><br>
+  
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var sidebarCollapse = document.getElementById('sidebarCollapse');
+      sidebarCollapse.addEventListener('click', function () {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('active');
+      });
+    });
+  </script>
